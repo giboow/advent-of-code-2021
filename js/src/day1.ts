@@ -71,7 +71,6 @@ const secondStep = (filePath: string): number => {
     });
 
     return countIncreases(transformedArray);
-    // return countIncreases([...sortedMap.values()]);
 }
 
 
