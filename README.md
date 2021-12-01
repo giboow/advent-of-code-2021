@@ -10,7 +10,7 @@ I propose to deal first with response scripts in JS, then you can find the code 
 You can launch each challenge with the command ``node day{x}.js`` or ``yarn day{x}.js``
 
 
-#Rust
+# Rust
 I'm not sure if I can do it, but I can try to resolve puzzle with Rust!
 Go to the Rust directory and run the following command: ```cd day{x} && cargo run```
 ``````
