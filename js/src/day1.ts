@@ -1,6 +1,4 @@
-import * as fs from "fs";
-import {resolve} from "path";
-import dirname from "es-dirname";
+import {getDataFromFile} from "./utils";
 
 /**
  * Count all increases
@@ -9,13 +7,11 @@ import dirname from "es-dirname";
 const countIncreases = (data: number[]): number => {
     // Count all increases in the data set
     return data.reduce((acc, curr, idx, array) => {
-        if (idx > 0) {
-            if (curr > array[idx - 1]) {
+            if ((array[idx + 1]??0) > curr) {
                 return acc + 1;
+            } else {
+                return acc;
             }
-        }
-        return acc;
-
     }, 0);
 }
 
@@ -23,12 +19,11 @@ const countIncreases = (data: number[]): number => {
 /**
  * Step 1 : Count increases in the data set
  */
-const firstStep = (filepath: string): number => {
+const firstStep = (data: string[]): number => {
     // Parse file and store all lines into an array
-    const fileInput = fs.readFileSync(filepath, 'utf-8');
-    const data = fileInput.split("\n").filter(value => value.length > 0).map(value => parseInt(value, 10));
+    const dataInt = data.map(value => parseInt(value, 10));
 
-    return countIncreases(data);
+    return countIncreases(dataInt);
 }
 
 /**
@@ -60,23 +55,19 @@ const firstStep = (filepath: string): number => {
  *
  * Then the result id 5
  */
-const secondStep = (filePath: string): number => {
+const secondStep = (data: string[]): number => {
     // Parse file and store all lines into an array
-    const fileInput: string = fs.readFileSync(filePath, 'utf-8');
-    const lines: number[] = fileInput.split("\n").filter(value => value.length > 0).map(value => parseInt(value, 10));
+    const lines = data.map(value => parseInt(value, 10));
 
-    const transformedArray : number[] = [];
-    lines.forEach((value, idx, array) => {
-        transformedArray.push(value + (array[idx + 1]??0) + (array[idx + 2]??0));
-    });
+    const transformedArray : number[] = lines.map((value, idx, array) => value + (array[idx + 1]??0) + (array[idx + 2]??0));
 
     return countIncreases(transformedArray);
 }
 
 
 // EXEC
-const filePath =   resolve(dirname(), '../../inputs/day1/input.txt');
-console.log(`result first step : ${firstStep(filePath)}`);
-console.log(`result second step : ${secondStep(filePath)}`);
+const data =  getDataFromFile("day1");
+console.log(`result first step : ${firstStep(data)}`);
+console.log(`result second step : ${secondStep(data)}`);
 
 
