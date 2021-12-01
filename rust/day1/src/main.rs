@@ -1,29 +1,38 @@
+use expect_test::expect;
+
 /**
  * Program launches all steps of the day 1 puzzle.
  */
 fn main() {
-    let _file = include_str!("../../../inputs/day1/input.txt");
-    println!("First step {}", first_step(_file));
-    println!("First step {}", second_step(_file));
+
+    // Test data
+    let test_data = include_str!("../../../inputs/day1/test.txt");
+    expect![["7"]].assert_eq(&first_step(test_data.lines()
+        .map(|line| line.parse::<usize>().unwrap()).collect::<Vec<usize>>()).to_string());
+    expect![["5"]].assert_eq(&second_step(test_data.lines()
+        .map(|line| line.parse::<usize>().unwrap()).collect::<Vec<usize>>()).to_string());
+
+    // Real data
+    let data = include_str!("../../../inputs/day1/input.txt");
+    println!("First step {}", first_step(data.lines()
+        .map(|line| line.parse::<usize>().unwrap()).collect::<Vec<usize>>()));
+    println!("First step {}", second_step(data.lines()
+        .map(|line| line.parse::<usize>().unwrap()).collect::<Vec<usize>>()));
 }
 
 /**
  * Step 1 : Count increases in the data set
  */
-fn first_step(_file: &str) -> i32 {
-    let numbers = include_str!("../../../inputs/day1/input.txt").lines()
-        .map(|line| line.parse::<usize>().unwrap())
-        .collect::<Vec<usize>>();
-
+fn first_step(_data: Vec<usize>) -> i32 {
     let mut counter = 0;
-    numbers.iter().enumerate().for_each(|(i, x)| {
-        let next = numbers.get(i + 1);
+    _data.iter().enumerate().for_each(|(i, x)| {
+        let next = _data.get(i + 1);
         if next.is_some() && next.unwrap() > x {
             counter += 1;
         }
     });
 
-    return counter
+    return counter;
 }
 
 /**
@@ -55,15 +64,13 @@ fn first_step(_file: &str) -> i32 {
  *
  * Then the result id 5
  */
-fn second_step(_file: &str) -> i32 {
+fn second_step(_data: Vec<usize>) -> i32 {
     let mut counter = 0;
-    let numbers = include_str!("../../../inputs/day1/input.txt").lines()
-        .map(|line| line.parse::<usize>().unwrap())
-        .collect::<Vec<usize>>();
+
 
     let mut tmp_values: Vec<usize> = Vec::new();
-    numbers.iter().enumerate().for_each(|(i, x)| {
-        let sum = x + numbers.get(i + 1).unwrap_or(&0) + numbers.get(i + 2).unwrap_or(&0);
+    _data.iter().enumerate().for_each(|(i, x)| {
+        let sum = x + _data.get(i + 1).unwrap_or(&0) + _data.get(i + 2).unwrap_or(&0);
         tmp_values.push(sum);
     });
 
@@ -73,5 +80,5 @@ fn second_step(_file: &str) -> i32 {
             counter += 1;
         }
     });
-    return counter
+    return counter;
 }
