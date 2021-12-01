@@ -76,7 +76,7 @@ const secondStep = (filePath: string): number => {
 
 
 // EXEC
-const filePath = resolve(dirname(), 'input.txt');
+const filePath =   resolve(dirname(), '../../inputs/day1/input.txt');
 console.log(`result first step : ${firstStep(filePath)}`);
 console.log(`result second step : ${secondStep(filePath)}`);
 

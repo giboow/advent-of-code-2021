@@ -6,7 +6,7 @@
     "es-dirname": "^0.1.0"
   },
   "scripts": {
-    "day1": "ts-node day1/index.ts"
+    "day1": "ts-node src/day1.ts"
   },
   "devDependencies": {
     "tslint": "^6.1.3",
