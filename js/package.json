@@ -6,7 +6,8 @@
     "es-dirname": "^0.1.0"
   },
   "scripts": {
-    "day1": "ts-node src/day1.ts"
+    "day1": "ts-node src/day1.ts",
+    "day2": "ts-node src/day2.ts"
   },
   "devDependencies": {
     "@types/mocha": "^9.0.0",
