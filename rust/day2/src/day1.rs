@@ -1,29 +1,16 @@
-use expect_test::expect;
+use aoc_runner_derive::{aoc, aoc_generator};
 
-/**
- * Program launches all steps of the day 1 puzzle.
- */
-fn main() {
-
-    // Test data
-    let test_data = include_str!("../../../inputs/day1/test.txt");
-    expect![["7"]].assert_eq(&first_step(test_data.lines()
-        .map(|line| line.parse::<usize>().unwrap()).collect::<Vec<usize>>()).to_string());
-    expect![["5"]].assert_eq(&second_step(test_data.lines()
-        .map(|line| line.parse::<usize>().unwrap()).collect::<Vec<usize>>()).to_string());
-
-    // Real data
-    let data = include_str!("../../../inputs/day1/input.txt");
-    println!("First step {}", first_step(data.lines()
-        .map(|line| line.parse::<usize>().unwrap()).collect::<Vec<usize>>()));
-    println!("First step {}", second_step(data.lines()
-        .map(|line| line.parse::<usize>().unwrap()).collect::<Vec<usize>>()));
+#[aoc_generator(day1)]
+fn generator(input: &str) -> Vec<usize> {
+    input.lines()
+        .map(|line| line.parse::<usize>().unwrap()).collect()
 }
 
 /**
  * Step 1 : Count increases in the data set
  */
-fn first_step(_data: Vec<usize>) -> i32 {
+#[aoc(day1, part1)]
+fn first_step(_data: &[usize]) -> i32 {
     let mut counter = 0;
     _data.iter().enumerate().for_each(|(i, x)| {
         let next = _data.get(i + 1);
@@ -64,7 +51,8 @@ fn first_step(_data: Vec<usize>) -> i32 {
  *
  * Then the result id 5
  */
-fn second_step(_data: Vec<usize>) -> i32 {
+#[aoc(day1, part2)]
+fn second_step(_data: &[usize]) -> i32 {
     let mut counter = 0;
 
 
