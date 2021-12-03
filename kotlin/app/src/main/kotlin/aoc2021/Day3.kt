@@ -11,9 +11,8 @@ class Day3() {
         var gamma = ""
         var epsilon = ""
         for (i in 0 until lineSize) {
-            val countStrong = input.filter { it[i].equals('1') }.count()
-            val countLower = input.filter { it[i].equals('0') }.count()
-            if (countStrong > countLower) {
+            var howMany = howMany(input, i);
+            if (howMany.first > howMany.second) {
                 gamma += "1"
                 epsilon += "0"
             } else {
@@ -25,42 +24,31 @@ class Day3() {
     }
 
     fun secondStep(input: List<String>): Int {
-        val lineSize = input[0].length;
-        var oxygen = input.toMutableList();
-        var scrubber = input.toMutableList();
+        return filterValue(input, 0, true) * filterValue(input, 0, false)
+    }
 
-        var i = 0
-        while (i < lineSize) {
+    private fun howMany(data: List<String>, i: Int): Pair<Int, Int> {
+        return Pair(data.filter { it[i].equals('1') }.count(), data.filter { it[i].equals('0') }.count());
+    }
 
-
-            if (oxygen.size > 1) {
-                val countStrong = oxygen.filter { it[i].equals('1') }.count()
-                val countLower = oxygen.filter { it[i].equals('0') }.count()
-                oxygen = oxygen.filter {
-                    if (countStrong >= countLower) {
-                        it[i].equals('1')
-                    } else {
-                        it[i].equals('0')
-                    }
-                } as MutableList<String>
-            }
-            if (scrubber.size > 1) {
-                val countStrong = scrubber.filter { it[i].equals('1') }.count()
-                val countLower = scrubber.filter { it[i].equals('0') }.count()
-                scrubber = scrubber.filter {
-                    if (countStrong >= countLower) {
-                        it[i].equals('0')
-                    } else {
-                        it[i].equals('1')
-                    }
-                } as MutableList<String>
-            }
-            i++
+    private fun filterValue(data: List<String>, counter: Int, isOxygen: Boolean): Int {
+        if (data.size.equals(1)) {
+            return parseInt(data[0], 2);
         }
 
-        return parseInt(oxygen[0], 2) * parseInt(scrubber[0], 2)
+
+        var howMany = howMany(data, counter);
+        return filterValue(data.filter {
+            if (howMany.first >= howMany.second) {
+                if(isOxygen) it[counter].equals('0') else it[counter].equals('1')
+            } else {
+                if(isOxygen) it[counter].equals('1') else it[counter].equals('0')
+            }
+        }, counter+1, isOxygen)
     }
+
 }
+
 
 
 fun main() {
