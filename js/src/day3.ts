@@ -30,8 +30,8 @@ const secondStep = (data: string[]): number => {
     while(oxygen.length > 1 && i < commonStringLength) {
         const countStrong = oxygen.filter(line => line[i] === "1");
         const countLow = oxygen.filter(line => line[i] === "0");
-       oxygen = oxygen.filter(line => {
-            if (countStrong.length > countLow.length || countStrong.length == countLow.length) {
+        oxygen = oxygen.filter(line => {
+            if (countStrong.length >= countLow.length) {
                return line[i] === "1";
             } else {
                return line[i] === "0";
@@ -45,7 +45,7 @@ const secondStep = (data: string[]): number => {
         const countStrong = scrubber.filter(line => line[j] === "1");
         const countLow = scrubber.filter(line => line[j] === "0");
         scrubber = scrubber.filter(line => {
-            if (countStrong.length > countLow.length || countStrong.length == countLow.length) {
+            if (countStrong.length >= countLow.length) {
                 return line[j] === "0";
             } else {
                 return line[j] === "1";
@@ -53,6 +53,7 @@ const secondStep = (data: string[]): number => {
         });
         j++
     }
+    console.log(oxygen[0], scrubber[0])
     return parseInt(oxygen[0], 2) * parseInt(scrubber[0], 2);
 }
 
