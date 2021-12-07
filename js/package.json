@@ -6,12 +6,13 @@
     "es-dirname": "^0.1.0"
   },
   "scripts": {
-    "day1": "ts-node src/day1.ts",
+    "day1": "time ts-node src/day1.ts",
     "day2": "ts-node src/day2.ts",
     "day3": "ts-node src/day3.ts",
     "day4": "ts-node src/day4.ts",
     "day5": "ts-node src/day5.ts",
-    "day6": "ts-node src/day6.ts"
+    "day6": "ts-node src/day6.ts",
+    "day7": "time ts-node src/day7.ts"
   },
   "devDependencies": {
     "@types/mocha": "^9.0.0",
