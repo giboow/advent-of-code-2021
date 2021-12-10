@@ -15,7 +15,8 @@
     "day6": "ts-node src/day6.ts",
     "day7": "time ts-node src/day7.ts",
     "day8": "time ts-node src/day8.ts",
-    "day9": "time ts-node src/day9.ts"
+    "day9": "time ts-node src/day9.ts",
+    "day10": "time ts-node src/day10.ts"
   },
   "devDependencies": {
     "@types/mocha": "^9.0.0",
