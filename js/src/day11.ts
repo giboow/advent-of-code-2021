@@ -22,14 +22,14 @@ class Cell {
         }
 
         let flashCounter = 0
-        if(this.value <= 9) {
+        if (this.value <= 9) {
             this.value++;
         }
 
         if (!this.hasFlashlight && this.value > 9) {
             this.hasFlashlight = true;
             flashCounter++;
-            for(let cell of this.neighborhood) {
+            for (let cell of this.neighborhood) {
                 flashCounter += cell.inc(this);
             }
         }
@@ -95,7 +95,7 @@ class Grid {
 
         for (let x = 0; x < this.cells.length; x++) {
             for (let y = 0; y < this.cells[x].length; y++) {
-                if(this.cells[x][y].hasFlashlight) {
+                if (this.cells[x][y].hasFlashlight) {
                     this.cells[x][y].value = 0;
                     this.cells[x][y].hasFlashlight = false;
                 }
@@ -104,16 +104,38 @@ class Grid {
 
         return stepCounter;
     }
+
+
+    public run2() {
+        let step = 0;
+        do {
+            step++;
+            this.step();
+        } while (!this.checkSync());
+
+        return step;
+    }
+
+    private checkSync(): boolean {
+        const mainVal = this.cells[0][0].value;
+        for (let x = 0; x < this.cells.length; x++) {
+            for (let y = 0; y < this.cells[x].length; y++) {
+                if (this.cells[x][y].value !== mainVal) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
 
 
-
-
 const dataTest = getTestFromFile("day11").map(line => line.split("").map(Number));
-const gridTest = new Grid(dataTest);
-expect(gridTest.run(100)).toBe(1656);
+expect(new Grid(dataTest).run(100)).toBe(1656);
+expect(new Grid(dataTest).run2()).toBe(195);
 
 
 const data = getDataFromFile("day11").map(line => line.split("").map(Number));
-const grid = new Grid(data);
-console.log(`Step 1 ${grid.run(100)}`);
+console.log(`Step 1 ${ new Grid(data).run(100)}`);
+console.log(`Step 2 ${ new Grid(data).run2()}`);
