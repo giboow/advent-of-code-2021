@@ -39,9 +39,11 @@ class CalcGame {
         }
     }
 
-    run(instructions: Instruction[]) : number{
+    run(instructions: Instruction[]) : Point[]{
+
+        const points = [...this.points];
         for (const {axe, value} of instructions) {
-            for (const point of this.points) {
+            for (const point of points) {
                 if (axe === 'x' && point.x > value) {
                     point.x = value - Math.abs(point.x - value);
                 } else if (axe === 'y' && point.y > value) {
@@ -50,17 +52,34 @@ class CalcGame {
             }
         }
 
+        return points;
+
+    }
+
+
+    step1() {
+        const points = this.run([...this.instruction.slice(0,1)]);
         const uniqu = new Set<string>();
-        for (const point of this.points) {
+        for (const point of points) {
             uniqu.add(point.toString());
         }
 
         return uniqu.size;
     }
 
+    step2() {
+        const points = this.run(this.instruction);
+        const grid: string[][] = [];
 
-    step1() {
-        return this.run([...this.instruction.slice(0,1)]);
+        const maxX = points.reduce((acc, point) => point.x > acc ? point.x : acc, 0);
+
+        for (const point of points) {
+            if(!grid[point.y]){
+                grid[point.y] = new Array(maxX + 1).fill(' ');
+            }
+            grid[point.y][point.x] = '█';
+        }
+        console.log(grid.map(line => line.join('')).join('\n'));
     }
 }
 
@@ -71,4 +90,8 @@ expect(gameTest.step1()).toEqual(17);
 
 
 const data = getDataFromFile("day13");
-console.log(`Step1 ${new CalcGame(data).step1()}`);
+const game = new CalcGame(data);
+console.log(`Step1 ${game.step1()}`);
+
+console.log(`Step2`);
+game.step2();
