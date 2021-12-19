@@ -21,7 +21,8 @@
     "day12": "time ts-node src/day12.ts",
     "day13": "time ts-node src/day13.ts",
     "day14": "time ts-node src/day14.ts",
-    "day15": "time ts-node src/day15.ts"
+    "day15": "time ts-node src/day15.ts",
+    "day16": "time ts-node src/day16.ts"
   },
   "devDependencies": {
     "@types/mocha": "^9.0.0",
